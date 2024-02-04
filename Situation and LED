@@ -1,0 +1,11 @@
+SITUATION 1: 
+Daylight and Object Detected-> In this case, the UltrasonicSensor and LDR Sensor both identify an object or person as being there. 
+The LED(s) continue to be off as a result, showing that no extra lighting is required.
+
+SITUATION 2:
+Dark and No Object-> When it gets dark (LDR senses low light) but the ultrasonic sensor doesn't pick up any objects or people, 
+the LED(s) don't turn on because there is no one to light up for.
+
+SITUATION 3:
+Dark and Object Present-> The Arduino activates the LED(s) to offer additional brightness, improving visibility in the dark area, 
+when it is dark (LDR detects low light) and the Ultrasonic Sensor detects an object or person.
