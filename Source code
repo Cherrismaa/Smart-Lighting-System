@@ -1,55 +1,78 @@
-```cpp
-// Pin definitions
-const int LDR_PIN = A0;
-const int TRIGGER_PIN = 7;
-const int ECHO_PIN = 6;
-const int LED_PIN = 13;
-const int BUZZER_PIN = 8;
+#include <Servo.h>
 
-// Variables
-long duration;
+#define trigPin 12
+#define echoPin 13
+
+int IRSensor = 7;
+int sound = 100;
 int distance;
-int brightness;
-bool is_led_on = false;
+int buzzer = 11;
+
+Servo servo_test;
+Servo servo_test1;
+int angle = 180;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(LDR_PIN, INPUT);
-  pinMode(TRIGGER_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
-  pinMode(LED_PIN, OUTPUT);
-  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(buzzer, OUTPUT);
+  servo_test.attach(9);
+  servo_test1.attach(8);
+  pinMode(IRSensor, INPUT);
 }
 
 void loop() {
-  // Read LDR sensor value
-  int ldr_value = analogRead(LDR_PIN);
-  Serial.println(ldr_value);
-  
-  // Check if LDR value is low and ultrasonic value is less than 50
-  digitalWrite(TRIGGER_PIN, LOW);
+  long duration, distance;
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
-  digitalWrite(TRIGGER_PIN, HIGH);
+  digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
-  digitalWrite(TRIGGER_PIN, LOW);
-  duration = pulseIn(ECHO_PIN, HIGH);
-  distance = duration * 0.034 / 2;
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration * 0.034) / 2;
   Serial.print(distance);
-  Serial.println(" cm");
-  
-  if (ldr_value > 600 && distance < 50 && !is_led_on) {
-    digitalWrite(LED_PIN, HIGH);
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(200);
-    digitalWrite(BUZZER_PIN, LOW);
-    is_led_on = true;
-  } else if ((ldr_value <= 600 || distance >= 50) && is_led_on) {
-    digitalWrite(LED_PIN, LOW);
-    digitalWrite(BUZZER_PIN, HIGH);
-    delay(200);
-    digitalWrite(BUZZER_PIN, LOW);
-    is_led_on = false;
+  irs();
+  if (distance < 10) {
+    tone(buzzer, sound);
+    //lcd
   }
+  if (distance > 20) {
+    //tone(buzzer, sound);
+    Serial.print(distance);
+    Serial.println(" cm");
+    //lcd display
+    //  if (distance >30)
+    // {
+    // serv();
+    //}
+  }
+  //else
+  //{
+  // noTone(buzzer);
+  //}
+  delay(500);
+}
 
-  delay(100);
+void serv() {
+  for (angle = 0; angle < 90; angle += 1) {
+    servo_test.write(angle);
+    servo_test1.write(angle);
+    delay(15);
+  }
+  delay(1000);
+  for (angle = 90; angle >= 1; angle -= 15) {
+    servo_test.write(angle);
+    servo_test1.write(angle);
+    delay(5);
+  }
+}
+
+void irs() {
+  int sensorStatus = digitalRead(IRSensor);
+  if (sensorStatus == 1) {
+    noTone(buzzer);
+  } else {
+    tone(buzzer, sound);
+  }
 }
