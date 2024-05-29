@@ -1,3 +1,4 @@
+```cpp
 // Pin definitions
 const int LDR_PIN = A0;
 const int TRIGGER_PIN = 7;
@@ -38,7 +39,6 @@ void loop() {
   
   if (ldr_value > 600 && distance < 50 && !is_led_on) {
     digitalWrite(LED_PIN, HIGH);
-    
     digitalWrite(BUZZER_PIN, HIGH);
     delay(200);
     digitalWrite(BUZZER_PIN, LOW);
