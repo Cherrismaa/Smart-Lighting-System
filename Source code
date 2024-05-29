@@ -1,13 +1,10 @@
 #include <Servo.h>
-
 #define trigPin 12
 #define echoPin 13
-
 int IRSensor = 7;
 int sound = 100;
 int distance;
 int buzzer = 11;
-
 Servo servo_test;
 Servo servo_test1;
 int angle = 180;
