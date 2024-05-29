@@ -1,3 +1,9 @@
-# Smart-Lighting-System
+# Smart-Lighting-System                                                  
+IoT and smart lighting revolutionize illumination with real-time, adaptive controls, enhancing comfort and energy efficiency while enabling intelligent, sustainable environments.       
 
-The IoT and smart lighting technologies have drastically changed how we connect with and illuminate our surroundings. Through a seamless integration of sensors, actuators and communication protocols, this system enhances user comfort, energy economy and automation in lighting control. Adaptive brightness and color adjustments are made possible by real-time data collection and processing, which takes into account user preferences and external conditions. Wireless networking gives users the ability to monitor and control lighting remotely, enabling personalized and useful lighting experiences. The interdependent connection between IoT and smart lighting paves the way for intelligent and sustainable environments and holds promise for future changes in energy and lighting consumption.
+## Sensors Used:
+UltraSonic HC-SR-4 sensor - Measures the distance between the sensor and object.
+LDR (Light Dependent Resistor) : Checks the intensity of the light.
+
+## Libraries Used
+Unified Sensor by Adafruit
